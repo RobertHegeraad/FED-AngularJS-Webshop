@@ -1,0 +1,30 @@
+<h2>Shopping Cart</h2>
+
+<div ng-show="isCartEmpty()">
+    Cart is empty
+</div>
+
+<ul class="products-list">
+	<li ng-repeat="product in products | filter:isNotNull ">
+		<div class="media">
+			<h3><a href="#/product/{{ product.id }}">Product {{ product.id }}</a></h3>
+			<p>Price: €{{ product.price }}</p>
+			<p>Quantity: {{ product.quantity }}</p>
+			<p><span class="btn" ng-click="addQuantity(product.id)">+</span><span class="btn" ng-click="removeQuantity(product.id)">-</span></p>
+		</div>
+		<button class="btn btn-blue" ng-click="removeFromCart(product.id)">Remove</button>
+	</li>
+</ul>
+
+<div>
+	<p>You have <span ng-bind="getProductCount()"></span> items in your cart</p>
+	<p class="total">Total: €<span ng-bind="getTotal()"></span></p>
+</div>
+
+<div class="cart-buttons">
+	<a href="#/products"><button class="btn btn-blue btn-continue-shopping">Continue shopping</button></a>
+
+	<div ng-show="!isCartEmpty()">
+		<button class="btn btn-blue btn-next-step">Next step...</button>
+	</div>
+</div>

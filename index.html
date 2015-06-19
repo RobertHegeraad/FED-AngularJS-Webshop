@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS Webshop</title>
+	
+	<link rel="stylesheet" href="styles/index.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js"></script>
+</head>
+<body ng-app="webshop">
+	
+	<header>
+		<h1 class="logo"><a href="#/products">Webshop</a></h1>
+		<div ng-controller="LoginCtrl">
+			<div ng-if="isAuth()">
+				<div ng-model="username">Logged in as {{ username }}</div>
+				<button class="btn login-btn" ng-click="logout()">Logout</button>
+			</div>
+			<div ng-if="!isAuth()">
+				<button class="btn login-btn" ng-click="login()">Login</button>
+			</div>
+		</div>
+		<div ng-controller="HeaderCtrl">
+			<a class="btn cart-btn" href="#/cart">Shopping cart (<span ng-bind="getProductCount()">0</span>)</a>
+		</div>
+	</header>
+
+	<div id="container" ng-view></div>
+
+<script src="scripts/app.js"></script>
+
+<!-- Factories -->
+<script src="scripts/factories/product.js"></script>
+<script src="scripts/factories/cart.js"></script>
+<script src="scripts/factories/user.js"></script>
+<script src="scripts/factories/admin.js"></script>
+
+<!-- Services -->
+<script src="scripts/services/authentication.js"></script>
+
+<!-- Controllers -->
+<script src="scripts/controllers/login.js"></script>
+<script src="scripts/controllers/cart.js"></script>
+<script src="scripts/controllers/header.js"></script>
+<script src="scripts/controllers/product.js"></script>
+<script src="scripts/controllers/products.js"></script>
+
+</body>
+</html>
