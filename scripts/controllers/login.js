@@ -1,48 +1,73 @@
-app.controller('LoginCtrl', ['$scope', '$cookieStore', '$http', '$location', '$authentication', function($scope, $cookieStore, $http, $location, $authentication) {
+app.controller('LoginCtrl', ['$scope', '$cookieStore', '$http', '$location', '$authentication', '$notice', function($scope, $cookieStore, $http, $location, $authentication, $notice) {
   
-  // wegstoppen in user object en gebruiken via authentication service
-
-  $scope.username = 'robert';
-  $scope.password = '';
+  $scope.username = '';
 
   $scope.getUser = function() {
 
   }
 
+  /*
+   * Check if the user is logged in
+   */
   $scope.isAuth = function() {
-    return $authentication.isAuth();
+    var user = $authentication.isAuth();
+    $scope.username = user.username;
+    return user.auth;
   }
 
-  $scope.attempt = function(username, password, callback) {
-      $http({
-      method: 'GET',
-      url: 'http://graph.facebook.com/robert.hegeraad'
-    }).success(callback);
+  /*
+   * Attemp to log the user in
+   */
+  $scope.attempt = function(username, password, successCB, errorCB) {
+
+    $http({
+      method: 'post',
+      data: $.param({ username: username, password: password }),
+      url: 'http://student.cmi.hro.nl/0880145/jaar2/kw4/fed/database/?login=true',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    })
+    .success(function(data) {
+      if(data.length == 0) {
+        errorCB(data);
+      } else {
+        successCB(data);
+      }
+    })
+    .error(errorCB);
   }
 
+  /*
+   * Attempt to log in and redirect
+   */
   $scope.login = function() {
     
-    // validate username (validate service?)
-
-    $scope.attempt($scope.username, $scope.password, function(data) {
+    $scope.attempt('roberthegeraad@gmail.com', 'pass', function(data) {
       console.log(data);
 
       // Log the user in
-      $authentication.login(data.first_name);
+      $authentication.login(data.email);
 
       if($authentication.user.auth) {
-        console.log('logged in as ' + $authentication.user.username);
+        $notice.show('logged in as ' + $authentication.user.username);
+        $scope.username = $authentication.user.username;
 
         if($location.path() != '/products')
           $location.path('/products');
       }
+    }, function(data) {
+      $notice.show('Failed to login, please try again later');
     });
   }
 
+  /*
+   * Logout and redirect
+   */
   $scope.logout = function() {
     $authentication.logout();
 
+    $notice.show('Logged out');
+
     if($location.path() != '/products')
-          $location.path('/products');
+      $location.path('/products');
   }
 }]);

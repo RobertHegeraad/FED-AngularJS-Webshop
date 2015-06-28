@@ -4,12 +4,11 @@ app.factory('$authentication', function($rootScope, $cookieStore) {
       user: {},
 
       isAuth: function() {
-      	var user = $cookieStore.get('user') || { auth: false };
-      	return user.auth;
+      	return $cookieStore.get('user') || { auth: false };
       },
 
       login: function(username) {
-        // Add to cookie or localstorage
+        console.log(username);
 
         // user object in auth opslaan
         // this.user = new User(username, ...);

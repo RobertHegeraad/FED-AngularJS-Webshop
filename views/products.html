@@ -6,6 +6,6 @@
 			<h3><a href="#/product/{{ product.getId() }}">Product {{ product.getId() }}</a></h3>
 			<p>Price: €{{ product.getPrice() }}</p>
 		</div>
-		<button class="btn btn-blue" ng-click="addToCart(product.getId(), product.getPrice())">Add to cart</button>
+		<button class="btn btn-blue" ng-click="addToCart(product.getId(), product.getTitle(), product.getPrice())">Add to cart</button>
 	</li>
 </ul>

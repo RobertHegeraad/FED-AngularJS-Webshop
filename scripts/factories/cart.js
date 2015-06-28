@@ -1,4 +1,4 @@
-app.factory('Cart', ['$cookieStore', function($cookieStore) {
+app.factory('Cart', ['$cookieStore', '$notice', function($cookieStore, $notice) {
 	return {
 
 		products: [],
@@ -6,10 +6,10 @@ app.factory('Cart', ['$cookieStore', function($cookieStore) {
 		/*
 		 * Add a product to the cart cookie
 		 */
-		add: function(id, price) {
+		add: function(id, title, price) {
 	 		// Add a new product or update the quantity
 	 		if(this.products[id] == undefined) {
-	 			this.products[id] = { id: id, price: price, quantity: 1 };
+	 			this.products[id] = { id: id, title: title, price: price, quantity: 1 };
 	 		} else {
 	 			this.products[id].quantity++;
 	 		}
@@ -23,6 +23,8 @@ app.factory('Cart', ['$cookieStore', function($cookieStore) {
 		 * Remove a product from the cart cookie
 		 */
 		remove: function(id) {
+		  	$notice.show('Removed ' + this.products[id].title + ' from your cart');
+		  	
 		  	this.products[id] = null;
 		  	$cookieStore.put('cart', this.products);
 

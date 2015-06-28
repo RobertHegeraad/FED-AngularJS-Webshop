@@ -7,7 +7,7 @@
 <ul class="products-list">
 	<li ng-repeat="product in products | filter:isNotNull ">
 		<div class="media">
-			<h3><a href="#/product/{{ product.id }}">Product {{ product.id }}</a></h3>
+			<h3><a href="#/product/{{ product.id }}">{{ product.title }}</a></h3>
 			<p>Price: €{{ product.price }}</p>
 			<p>Quantity: {{ product.quantity }}</p>
 			<p><span class="btn" ng-click="addQuantity(product.id)">+</span><span class="btn" ng-click="removeQuantity(product.id)">-</span></p>

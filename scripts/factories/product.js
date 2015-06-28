@@ -1,8 +1,9 @@
 app.factory('Product', function() {
-	function Product(id, title, price) {
-		this.id = id;
-		this.title = title;
-		this.price = (Math.random() * 100).toFixed(2);;
+	function Product(data) {
+		this.id = data.product_id;
+		this.title = data.title;
+		this.description = data.description;
+		this.price = data.price;
 	}
 
 	Product.prototype = {
@@ -14,9 +15,13 @@ app.factory('Product', function() {
 			return this.title;
 		},
 
+		getDescription: function() {
+			return this.description;
+		},
+
 		getPrice: function() {
 			// format to .00
-			return this.price;
+			return parseInt(this.price).toFixed(2);
 		}
 	};
 
