@@ -1,16 +1,12 @@
 app.factory('Admin', function(User) {
-	function Admin(user) {
-		this.id = user.id;
-		this.username = user.username;
+	function Admin(user) {}
+
+	// Extend the User object
+	Admin.prototype = new User();
+
+	Admin.prototype.isAdmin = function() {
+		return true;
 	}
-
-	// betere overerving
-
-	Admin.prototype = {
-		getUsername: function() {
-			return this.username;
-		}
-	};
 
 	return Admin;
 });

@@ -4,6 +4,7 @@ app.factory('Product', function() {
 		this.title = data.title;
 		this.description = data.description;
 		this.price = data.price;
+		this.quantity = data.quantity || 1;
 	}
 
 	Product.prototype = {

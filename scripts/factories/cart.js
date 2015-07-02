@@ -1,7 +1,9 @@
-app.factory('Cart', ['$cookieStore', '$notice', function($cookieStore, $notice) {
+app.factory('Cart', ['$cookieStore', '$http', '$notice', function($cookieStore, $http, $notice) {
 	return {
 
 		products: [],
+
+		orders: [],
 
 		/*
 		 * Add a product to the cart cookie
@@ -29,6 +31,14 @@ app.factory('Cart', ['$cookieStore', '$notice', function($cookieStore, $notice) 
 		  	$cookieStore.put('cart', this.products);
 
 		  	return this.products;
+		},
+
+		/*
+		 * Clear the cart cookie
+		 */
+		clear: function() {
+			$cookieStore.put('cart', []);
+			return this.products = [];
 		},
 
 		/*
@@ -62,6 +72,23 @@ app.factory('Cart', ['$cookieStore', '$notice', function($cookieStore, $notice) 
   			return this.products = $cookieStore.get('cart') || [];
 		},
 
+		/*
+		 * Get all the previous orders for the user
+		 */
+		getOrders: function(successCB, errorCB) {
+			$http({
+		      method: 'get',
+		      url: 'http://student.cmi.hro.nl/0880145/jaar2/kw4/fed/database/?orders=true&user_id=1',
+		    })
+		    .success(function(data) {
+				this.orders = data;
+				successCB(data);
+		    })
+		    .error(function(data) {
+		    	console.log(data);
+		    });
+		},
+
 		getTotal: function() {
 			var total = 0;
 
@@ -71,7 +98,7 @@ app.factory('Cart', ['$cookieStore', '$notice', function($cookieStore, $notice) 
 				}
 			}
 
-			return total;
+			return parseInt(total).toFixed(2);
 		},
 
 		/*
@@ -79,6 +106,30 @@ app.factory('Cart', ['$cookieStore', '$notice', function($cookieStore, $notice) 
 		 */
 		getProductCount: function() {
 			return this.products.filter(this.isNotNull).length;
+		},
+
+		/*
+		 * Place an order
+		 */
+		order: function() {
+			console.log(this.products);
+
+			var products = this.products.filter(this.isNotNull);
+
+			$http({
+		      method: 'post',
+		      data: $.param({ user_id: 1, products: products }),
+		      url: 'http://student.cmi.hro.nl/0880145/jaar2/kw4/fed/database/?order=true',
+		      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		    })
+		    .success(function(data) {
+		    	console.log(data);
+
+		    	$notice.show("You've successfully placed an order");
+		    })
+		    .error(function(data) {
+		    	console.log(data);
+		    });
 		},
 
 		/*

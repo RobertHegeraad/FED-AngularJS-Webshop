@@ -3,7 +3,7 @@
 <ul class="products-list">
 	<li ng-repeat="product in products">
 		<div class="media">
-			<h3><a href="#/product/{{ product.getId() }}">Product {{ product.getId() }}</a></h3>
+			<h3>Product {{ product.getId() }}</h3>
 			<p>Price: €{{ product.getPrice() }}</p>
 		</div>
 		<button class="btn btn-blue" ng-click="addToCart(product.getId(), product.getTitle(), product.getPrice())">Add to cart</button>

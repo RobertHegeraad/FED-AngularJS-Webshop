@@ -6,6 +6,8 @@
 	
 	<link rel="stylesheet" href="styles/index.css">
 
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
@@ -14,7 +16,7 @@
 <body ng-app="webshop">
 	
 	<header>
-		<h1 class="logo"><a href="#/products">Webshop</a></h1>
+		<h1 id="logo"><a href="#/products">Webshop</a></h1>
 		
 		<div id="notice"></div>
 
@@ -27,7 +29,12 @@
 			</div>
 		</div>
 		<div ng-controller="HeaderCtrl">
-			<a class="btn cart-btn" href="#/cart">Shopping cart (<span ng-bind="getProductCount()">0</span>)</a>
+			<a class="btn btn-blue cart-btn" href="#/cart">Shopping cart (<span ng-bind="getProductCount()">0</span>)</a>
+		</div>
+		<div ng-controller="LoginCtrl">
+			<div ng-if="isAuth() && isAdmin()">
+				<a class="btn login-btn" href="#/admin">Admin panel</a>
+			</div>
 		</div>
 	</header>
 
@@ -50,6 +57,7 @@
 <script src="scripts/controllers/header.js"></script>
 <script src="scripts/controllers/product.js"></script>
 <script src="scripts/controllers/products.js"></script>
+<script src="scripts/controllers/admin.js"></script>
 
 </body>
 </html>

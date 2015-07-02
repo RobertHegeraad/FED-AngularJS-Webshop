@@ -25,6 +25,37 @@
 	<a href="#/products"><button class="btn btn-blue btn-continue-shopping">Continue shopping</button></a>
 
 	<div ng-show="!isCartEmpty()">
-		<button class="btn btn-blue btn-next-step">Next step...</button>
+		<div ng-controller="LoginCtrl" ng-show="!isAuth()">
+			<button class="btn login-btn" ng-click="login()">Click here to login</button>
+		</div>
+		<div ng-controller="LoginCtrl" ng-show="isAuth()">
+			<button class="btn btn-blue btn-next-step" ng-click="order()">Confirm Order</button>
+		</div>
 	</div>
+</div>
+
+
+<!-- PREVIOUS ORDERS -->
+
+<div ng-controller="LoginCtrl" ng-show="isAuth()">
+
+	<h2 class="orders-header">Previous Orders</h2>
+
+	<ul class="products-list orders-list">
+		<li ng-repeat="order in orders">
+			<div class="media">
+				<p>Order ID: {{ order.order_id }}</p>
+				<p>Placed on: {{ order.fullDate }}</p>
+				
+				<ul class="products-list orders-list">
+					<li ng-repeat="product in order.products">
+						<p><a href="#/product/{{ order.product_id }}">{{ product.getTitle() }}</a></p>
+						<p>Price: €{{ product.getPrice() }}</p>
+						<p>Quantity: {{ product.quantity }}</p>
+					</li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+
 </div>

@@ -13,10 +13,10 @@ var app = angular.module('webshop', ['ngRoute', 'ngCookies'])
             templateUrl: 'views/cart.html',
             controller: 'CartCtrl'
         })
-        // .when('/login', {
-        //     templateUrl: 'views/login.html',
-        //     controller: 'LoginCtrl'
-        // })
+        .when('/admin', {
+            templateUrl: 'views/adminpanel.html',
+            controller: 'AdminCtrl'
+        })
         // .when('/orders', {
         //     templateUrl: 'views/orders.html',
         //     controller: 'OrdersCtrl'

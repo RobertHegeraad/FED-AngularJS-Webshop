@@ -16,10 +16,16 @@ app.controller('LoginCtrl', ['$scope', '$cookieStore', '$http', '$location', '$a
   }
 
   /*
+   * Check if a user is an admin
+   */
+  $scope.isAdmin = function() {
+    return $authentication.isAdmin();
+  }
+
+  /*
    * Attemp to log the user in
    */
   $scope.attempt = function(username, password, successCB, errorCB) {
-
     $http({
       method: 'post',
       data: $.param({ username: username, password: password }),
@@ -42,12 +48,12 @@ app.controller('LoginCtrl', ['$scope', '$cookieStore', '$http', '$location', '$a
   $scope.login = function() {
     
     $scope.attempt('roberthegeraad@gmail.com', 'pass', function(data) {
-      console.log(data);
 
       // Log the user in
-      $authentication.login(data.email);
+      $authentication.login(data);
 
       if($authentication.user.auth) {
+
         $notice.show('logged in as ' + $authentication.user.username);
         $scope.username = $authentication.user.username;
 
