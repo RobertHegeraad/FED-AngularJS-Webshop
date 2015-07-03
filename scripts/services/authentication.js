@@ -9,13 +9,16 @@ app.factory('$authentication', function($rootScope, $cookieStore, User, Admin) {
       isAuth: function() {
         var user = $cookieStore.get('user') || { auth: false }
 
+        // If the user is logged in
         if(user.auth === true) {
           this.user = new User();
           
+          // If the user is admin
           if(user.admin == true) {
             this.user = new Admin(this.user);
           }
 
+          // Set the user information in the User or Admin object
           this.user.set({
             id: user.id,
             username: user.username,
@@ -30,7 +33,7 @@ app.factory('$authentication', function($rootScope, $cookieStore, User, Admin) {
       },
 
       /*
-       * Check if the logged in user has admin privileges
+       * Check if the logged in user has admin privileges by checking if this.user has the isAdmin() method from the Admin factory
        */
       isAdmin: function() {
         return ("isAdmin" in this.user);
@@ -53,14 +56,13 @@ app.factory('$authentication', function($rootScope, $cookieStore, User, Admin) {
           admin: user.admin,
           auth: true
         });
-        
-        console.log(this.user);
 
+        // Save the user in the user cookie
         $cookieStore.put('user', this.user);
       },
 
       /*
-       * Log the user out
+       * Log the user out by setting the user.auth property to false and resaving the user cookie
        */
       logout: function() {
         var user = $cookieStore.get('user', this.user) || {};

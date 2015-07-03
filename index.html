@@ -21,6 +21,7 @@
 		<div id="notice"></div>
 
 		<div ng-controller="LoginCtrl">
+			<!-- Show login/logout depending on the user's status -->
 			<div ng-if="isAuth()">
 				<button class="btn login-btn" ng-click="logout()">{{ username }} (Logout)</button>
 			</div>
@@ -31,6 +32,7 @@
 		<div ng-controller="CartCtrl">
 			<a class="btn btn-blue cart-btn" href="#/cart">Shopping cart (<span ng-bind="getProductCount()">0</span>)</a>
 		</div>
+		<!-- Show the admin panel button depending on the user's status -->
 		<div ng-controller="LoginCtrl">
 			<div ng-if="isAuth() && isAdmin()">
 				<a class="btn login-btn" href="#/admin">Admin panel</a>

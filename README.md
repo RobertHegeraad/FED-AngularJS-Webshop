@@ -30,6 +30,7 @@ __loginCtrl - ./controllers/login.js__
 De login controller probeert een gebruiker in te loggen door de username en password op te sturen naar de database. Als de gebruiker in de database bestaat wordt de gebruiker ingelogt via de Authentication service.
 Verder kan kan er in een view gecontrolleerd worden of er een gebruiker is ingelogt met de method `isAuth();` Aan de hand hiervan kan ander HTML getoond worden.
 
+Omdat ik geen login formulier heb verwerkt in de opdracht wordt er altijd ingelogt met 'roberthegeraad@gmail.com', deze user is ook direct een admin. Om in te loggen met een user zonder admin privileges kan de user in LoginCtrl verandert worden 'dannyhegeraad@gmail.com' gebruikt worden met hetzelfde wachtwoord.
 
 ### Views
 -----

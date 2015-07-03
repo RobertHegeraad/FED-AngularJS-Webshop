@@ -59,6 +59,10 @@ header {
 
 /* PRODUCT ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
+.product-container {
+    overflow: hidden;
+}
+
 .products-list li {
 	padding: 20px;
 	border-bottom: 1px solid #dbdbdb;
@@ -67,7 +71,7 @@ header {
 .products-list li:last-child {
 	border-bottom: 0;
 }
-	.products-list li .media {
+	.products-list li .media, .product-media {
 		float: left;
 	}
 		.products-list li h3 {
@@ -76,7 +80,7 @@ header {
 		.products-list li p {
 		
 		}
-	.products-list li button {
+	.products-list li button, .product-btn {
 		float: right;
 	}
 

@@ -8,20 +8,34 @@ app.factory('Product', function() {
 	}
 
 	Product.prototype = {
+
+		/*
+		 * Return the product ID
+		 */
 		getId: function() {
 			return this.id;
 		},
 
+		/*
+		 * Return the product title
+		 */
 		getTitle: function() {
 			return this.title;
 		},
 
+		/*
+		 * Return the product description
+		 */
 		getDescription: function() {
 			return this.description;
 		},
 
+		/*
+		 * Return the formatted price for a product
+		 *
+		 * 32 becomes 32.00
+		 */
 		getPrice: function() {
-			// format to .00
 			return parseInt(this.price).toFixed(2);
 		}
 	};

@@ -4,6 +4,9 @@ app.factory('Admin', function(User) {
 	// Extend the User object
 	Admin.prototype = new User();
 
+	/*
+	 * Add the isAdmin function to the prototype
+	 */
 	Admin.prototype.isAdmin = function() {
 		return true;
 	}

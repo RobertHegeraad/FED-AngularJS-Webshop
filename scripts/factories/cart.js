@@ -1,9 +1,9 @@
 app.factory('Cart', ['$cookieStore', '$http', '$notice', function($cookieStore, $http, $notice) {
 	return {
 
-		products: [],
+		products: [],	// Holds the cart products
 
-		orders: [],
+		orders: [],		// Holds the user's orders
 
 		/*
 		 * Add a product to the cart cookie
@@ -16,6 +16,7 @@ app.factory('Cart', ['$cookieStore', '$http', '$notice', function($cookieStore, 
 	 			this.products[id].quantity++;
 	 		}
 
+	 		// Save the cart cookie with the new products
 	 		$cookieStore.put('cart', this.products);
 
 	 		return this.products;
@@ -28,6 +29,8 @@ app.factory('Cart', ['$cookieStore', '$http', '$notice', function($cookieStore, 
 		  	$notice.show('Removed ' + this.products[id].title + ' from your cart');
 		  	
 		  	this.products[id] = null;
+
+		  	// Re save the cart cookie without the removed product
 		  	$cookieStore.put('cart', this.products);
 
 		  	return this.products;
@@ -56,6 +59,8 @@ app.factory('Cart', ['$cookieStore', '$http', '$notice', function($cookieStore, 
 		 */
 		removeQuantity: function(id) {
 			if(this.products[id] != undefined) {
+
+				// If the product quantity was already at 1, remove the product from the cart
 				if(this.products[id].quantity == 1) {
 					this.remove(id);
 				} else {
@@ -89,6 +94,9 @@ app.factory('Cart', ['$cookieStore', '$http', '$notice', function($cookieStore, 
 		    });
 		},
 
+		/*
+		 * Get the total price for all the products in the cart
+		 */
 		getTotal: function() {
 			var total = 0;
 
@@ -98,6 +106,7 @@ app.factory('Cart', ['$cookieStore', '$http', '$notice', function($cookieStore, 
 				}
 			}
 
+			// Return the formatted total price (.00)
 			return parseInt(total).toFixed(2);
 		},
 
@@ -109,11 +118,9 @@ app.factory('Cart', ['$cookieStore', '$http', '$notice', function($cookieStore, 
 		},
 
 		/*
-		 * Place an order
+		 * Place an order with the current products in the cart
 		 */
 		order: function() {
-			console.log(this.products);
-
 			var products = this.products.filter(this.isNotNull);
 
 			$http({

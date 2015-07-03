@@ -2,9 +2,12 @@ app.controller('LoginCtrl', ['$scope', '$cookieStore', '$http', '$location', '$a
   
   $scope.username = '';
 
-  $scope.getUser = function() {
-
-  }
+  /*
+   * Omdat ik geen login formulier heb verwerkt in de opdracht wordt er altijd ingelogt met 'roberthegeraad@gmail.com', deze user is ook direct een admin.
+   * Om in te loggen met een user zonder admin privileges kan de user 'dannyhegeraad@gmail.com' gebruikt worden met hetzelfde wachtwoord.
+   */
+  var username = 'roberthegeraad@gmail.com',
+      password = 'pass';
 
   /*
    * Check if the user is logged in
@@ -44,19 +47,24 @@ app.controller('LoginCtrl', ['$scope', '$cookieStore', '$http', '$location', '$a
 
   /*
    * Attempt to log in and redirect
+   *
+   * Omdat ik geen login formulier heb verwerkt in de opdracht wordt er altijd ingelogt met 'roberthegeraad@gmail.com', deze user is ook direct een admin.
+   * Om in te loggen met een user zonder admin privileges kan de user 'dannyhegeraad@gmail.com' gebruikt worden met hetzelfde wachtwoord.
    */
   $scope.login = function() {
     
-    $scope.attempt('roberthegeraad@gmail.com', 'pass', function(data) {
+    $scope.attempt(username, password, function(data) {
 
       // Log the user in
       $authentication.login(data);
 
+      // If logged in
       if($authentication.user.auth) {
 
         $notice.show('logged in as ' + $authentication.user.username);
         $scope.username = $authentication.user.username;
 
+        // Redirect to products
         if($location.path() != '/products')
           $location.path('/products');
       }
@@ -73,6 +81,7 @@ app.controller('LoginCtrl', ['$scope', '$cookieStore', '$http', '$location', '$a
 
     $notice.show('Logged out');
 
+    // Redirect to products
     if($location.path() != '/products')
       $location.path('/products');
   }

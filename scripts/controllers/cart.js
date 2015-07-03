@@ -24,14 +24,15 @@ app.controller('CartCtrl', ['$scope', '$cookieStore', 'Cart', 'Product', functio
     Cart.getOrders(function(orders) {
 
       for(var i=0; i<orders.length; i++) {
+        // Convert the order date to a human readable form
         var d = new Date(orders[i].date * 1000);
         orders[i].fullDate = (d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear());
 
+        // Put every product from the order in the Product factory
         for(var j=0; j<orders[i].products.length; j++) {
           orders[i].products[j] = new Product(orders[i].products[j]);
         }
       }
-      console.log(orders);
 
       $scope.orders = orders;
     });
@@ -99,6 +100,7 @@ app.controller('CartCtrl', ['$scope', '$cookieStore', 'Cart', 'Product', functio
     this.products = Cart.clear();
   }
 
+  // Get the products and orders when the page loads
   $scope.getProducts();
   $scope.getOrders();
 }]);

@@ -1,5 +1,9 @@
-<h2>Product item</h2>
-<div>
-	<p>{{ product.title }}</p>
-	<button class="btn btn-blue" ng-click="addToCart(product.id)">Add to cart</button>
+<div class="product-container">
+	<div class="product-media">
+		<h2>{{ product.getTitle() }}</h2>
+		<p>{{ product.getDescription() }}
+	</div>
+	<div class="product-btn">
+		<button class="btn btn-blue" ng-click="addToCart(product.getId(), product.getTitle(), product.getPrice())">Add to cart</button>
+	</div>
 </div>

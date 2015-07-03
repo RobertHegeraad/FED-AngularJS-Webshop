@@ -6,7 +6,7 @@ app.controller('AdminCtrl', ['$scope', '$cookieStore', '$http', function($scope,
   $scope.orders = [];
 
   /*
-   * Get all the previous order for the user
+   * Get all the orders for every user
    */
   $scope.getOrders = function() {
     $http({
@@ -15,7 +15,7 @@ app.controller('AdminCtrl', ['$scope', '$cookieStore', '$http', function($scope,
     })
     .success(function(orders) {
       for(var i=0; i<orders.length; i++) {
-        // Convert the date for the orders
+        // Convert the order date to a human readable form
         var d = new Date(orders[i].date * 1000);
         orders[i].fullDate = (d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear());
       }
@@ -26,5 +26,7 @@ app.controller('AdminCtrl', ['$scope', '$cookieStore', '$http', function($scope,
     });
   }
 
+
+  // Get the orders when the page loads
   $scope.getOrders();
 }]);
