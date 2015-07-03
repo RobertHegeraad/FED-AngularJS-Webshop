@@ -7,6 +7,7 @@
 		<div class="media">
 			<p>Order ID: {{ order.order_id }}</p>
 			<p>Placed on: {{ order.fullDate }}</p>
+			<p>By user: {{ order.email }}</p>
 			
 			<ul class="products-list orders-list">
 				<li ng-repeat="product in order.products">

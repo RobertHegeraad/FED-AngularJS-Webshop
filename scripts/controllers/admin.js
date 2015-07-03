@@ -15,6 +15,7 @@ app.controller('AdminCtrl', ['$scope', '$cookieStore', '$http', function($scope,
     })
     .success(function(orders) {
       for(var i=0; i<orders.length; i++) {
+        // Convert the date for the orders
         var d = new Date(orders[i].date * 1000);
         orders[i].fullDate = (d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear());
       }
